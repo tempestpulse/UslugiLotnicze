@@ -163,16 +163,41 @@ class TekstowyInterface
         private void DodajKlienta()
         {
             Console.WriteLine();
-            Console.Write("Podaj Imie: ");
-            string imie = Console.ReadLine();
-            Console.Write("Podaj Typ: ");
-            string typ = Console.ReadLine();
+            Console.WriteLine("1. Indywidualny");
+            Console.WriteLine("2. Pośrednik firmy");
+            Console.Write("Wybierz typ klienta: ");
+            string wybor = Console.ReadLine();
+            string imie;
+            string typ;
+            
 
-            Klient Klient = new Klient(imie, typ);
-
-            systemRezerwacji.DodajKlienta(Klient);
-            Console.WriteLine("Klient dodany.");
+            switch (wybor)
+            {
+                case "1":
+                    typ = "Indywidualny";
+                    Console.WriteLine();
+                    Console.Write("Podaj imię klienta: ");
+                    imie = Console.ReadLine();
+                    Klient indywidualny = new Klient(imie, typ);
+                    systemRezerwacji.DodajKlienta(indywidualny);
+                    Console.WriteLine("Klient dodany.");
+                    break;
+                case "2":
+                    Console.WriteLine();
+                    typ = "Pośrednik firmy";
+                    Console.Write("Podaj nazwę firmy: ");
+                    imie = Console.ReadLine();
+                    Klient posrednikFirmy = new Klient(imie, typ);
+                    systemRezerwacji.DodajKlienta(posrednikFirmy);
+                    Console.WriteLine("Klient dodany.");
+                    break;
+                default:
+                    Console.WriteLine("Niepoprawny wybór. Spróbuj ponownie.");
+                    break;
+            }
         }
+    
+        
 
         // Metoda usuwająca klienta
         private void UsunKlienta()
