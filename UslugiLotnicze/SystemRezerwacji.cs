@@ -159,7 +159,7 @@ class SystemRezerwacji
         {
             Lot lot = loty[i];
             Console.WriteLine(
-                $"Lot {i}: Samolot - {lot.Samolot.Model}, Trasa - {lot.Trasa.LotniskoWylotu} do {lot.Trasa.LotniskoPrzylotu}, Czas wylotu - {lot.DepartureTime}, Czas przylotu - {lot.ArrivalTime}");
+                $"Lot {i}: Samolot - {lot.Samolot.Model}, Trasa - {lot.Trasa.LotniskoWylotu} do {lot.Trasa.LotniskoPrzylotu}, Czas wylotu - {lot.CzasWylotu}, Czas przylotu - {lot.CzasPrzylotu}");
         }
     }
 
@@ -170,7 +170,7 @@ class SystemRezerwacji
             foreach (Lot lot in loty)
             {
                 writer.WriteLine(
-                    $"{lot.Samolot.Model},{lot.Trasa.LotniskoWylotu},{lot.Trasa.LotniskoPrzylotu},{lot.DepartureTime},{lot.ArrivalTime}");
+                    $"{lot.Samolot.Model},{lot.Trasa.LotniskoWylotu},{lot.Trasa.LotniskoPrzylotu},{lot.CzasWylotu},{lot.CzasPrzylotu}");
             }
         }
 
