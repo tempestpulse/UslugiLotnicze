@@ -1,239 +1,239 @@
 namespace UslugiLotnicze;
 using System.Globalization;
 
-class ReservationSystem
+class SystemRezerwacji
 {
-    private List<Aircraft> aircrafts;
-    private List<Customer> customers;
-    private List<Route> routes;
-    private List<Flight> flights;
+    private List<Samolot> samoloty;
+    private List<Klient> klienci;
+    private List<Trasa> trasy;
+    private List<Lot> loty;
 
-    public ReservationSystem()
+    public SystemRezerwacji()
     {
-        aircrafts = new List<Aircraft>();
-        customers = new List<Customer>();
-        routes = new List<Route>();
-        flights = new List<Flight>();
+        samoloty = new List<Samolot>();
+        klienci = new List<Klient>();
+        trasy = new List<Trasa>();
+        loty = new List<Lot>();
     }
 
-    public void AddAircraft(Aircraft aircraft)
+    public void DodajSamolot(Samolot samolot)
     {
-        aircrafts.Add(aircraft);
+        samoloty.Add(samolot);
     }
 
-    public void RemoveAircraft(Aircraft aircraft)
+    public void UsunSamolot(Samolot samolot)
     {
-        aircrafts.Remove(aircraft);
+        samoloty.Remove(samolot);
     }
 
-    public int GetAircraftCount()
+    public int GetSamolotyIlosc()
     {
-        return aircrafts.Count;
+        return samoloty.Count;
     }
 
-    public Aircraft GetAircraftByIndex(int index)
+    public Samolot GetSamolotIndex(int index)
     {
-        return aircrafts[index];
+        return samoloty[index];
     }
 
-    public void ViewAircrafts()
+    public void WyswietlSamoloty()
     {
-        for (int i = 0; i < aircrafts.Count; i++)
+        for (int i = 0; i < samoloty.Count; i++)
         {
-            Aircraft aircraft = aircrafts[i];
+            Samolot samolot = samoloty[i];
             Console.WriteLine(
-                $"Aircraft {i}: Model - {aircraft.Model}, Capacity - {aircraft.Capacity}, Range - {aircraft.Range}");
+                $"Samolot {i}: Model - {samolot.Model}, Rozmiar - {samolot.Rozmiar}, Zasieg - {samolot.Zasieg}");
         }
     }
 
-    public void AddCustomer(Customer customer)
+    public void DodajKlienta(Klient klient)
     {
-        customers.Add(customer);
+        klienci.Add(klient);
     }
 
-    public void RemoveCustomer(Customer customer)
+    public void UsunKlienta(Klient klient)
     {
-        customers.Remove(customer);
+        klienci.Remove(klient);
     }
 
-    public int GetCustomerCount()
+    public int GetKlientCount()
     {
-        return customers.Count;
+        return klienci.Count;
     }
 
-    public Customer GetCustomerByIndex(int index)
+    public Klient GetKlientByIndex(int index)
     {
-        return customers[index];
+        return klienci[index];
     }
 
-    public void ViewCustomers()
+    public void WyswietlKlientow()
     {
-        for (int i = 0; i < customers.Count; i++)
+        for (int i = 0; i < klienci.Count; i++)
         {
-            Customer customer = customers[i];
-            Console.WriteLine($"Customer {i}: Name - {customer.Name}, Type - {customer.Type}");
+            Klient Klient = klienci[i];
+            Console.WriteLine($"Klient {i}: Imie - {Klient.Imie}, Typ - {Klient.Typ}");
         }
     }
 
-    public void AddRoute(Route route)
+    public void DodajTrase(Trasa trasa)
     {
-        routes.Add(route);
+        trasy.Add(trasa);
     }
 
-    public void RemoveRoute(Route route)
+    public void UsunTrase(Trasa trasa)
     {
-        routes.Remove(route);
+        trasy.Remove(trasa);
     }
 
-    public int GetRouteCount()
+    public int GetIloscTras()
     {
-        return routes.Count;
+        return trasy.Count;
     }
 
-    public Route GetRouteByIndex(int index)
+    public Trasa GetIndexTrasy(int index)
     {
-        return routes[index];
+        return trasy[index];
     }
 
-    public void ViewRoutes()
+    public void WyswietlTrasy()
     {
-        for (int i = 0; i < routes.Count; i++)
+        for (int i = 0; i < trasy.Count; i++)
         {
-            Route route = routes[i];
+            Trasa trasa = trasy[i];
             Console.WriteLine(
-                $"Route {i}: Departure Airport - {route.DepartureAirport}, Arrival Airport - {route.ArrivalAirport}, Distance - {route.Distance}");
+                $"Trasa {i}: Departure Airport - {trasa.LotniskoWylotu}, Arrival Airport - {trasa.LotniskoPrzylotu}, Dystans - {trasa.Dystans}");
         }
     }
 
-    public void GenerateFlights()
+    public void GenerujLoty()
     {
-        foreach (Route route in routes)
+        foreach (Trasa trasa in trasy)
         {
-            foreach (Aircraft aircraft in aircrafts)
+            foreach (Samolot samolot in samoloty)
             {
-                int travelTime = CalculateTravelTime(route, aircraft);
-                if (aircraft.Range < route.Distance)
+                int czasPodrozy = ObliczCzasPodrozy(trasa, samolot);
+                if (samolot.Zasieg < trasa.Dystans)
                 {
                     Console.WriteLine(
-                        $"Flight not generated for Aircraft {aircraft.Model} and Route {route.DepartureAirport} to {route.ArrivalAirport}. Aircraft range is insufficient.");
+                        $"Lot not generated for Samolot {samolot.Model} and Trasa {trasa.LotniskoWylotu} to {trasa.LotniskoPrzylotu}. Samolot zasieg is insufficient.");
                     continue;
                 }
 
-                DateTime departureTime = DateTime.Now;
-                DateTime arrivalTime = departureTime.AddHours(travelTime);
+                DateTime czasWylotu = DateTime.Now;
+                DateTime czasPrzylotu = czasWylotu.AddHours(czasPodrozy);
 
-                Flight flight = new Flight(aircraft, route, departureTime, arrivalTime);
+                Lot lot = new Lot(samolot, trasa, czasWylotu, czasPrzylotu);
 
-                flights.Add(flight);
+                loty.Add(lot);
                 Console.WriteLine(
-                    $"Flight generated for Aircraft {aircraft.Model} and Route {route.DepartureAirport} to {route.ArrivalAirport}.");
+                    $"Lot wygenerowany dla Samolotu {samolot.Model} oraz Trasy {trasa.LotniskoWylotu} do {trasa.LotniskoPrzylotu}.");
             }
         }
     }
 
 
-    private int CalculateTravelTime(Route route, Aircraft aircraft)
+    private int ObliczCzasPodrozy(Trasa trasa, Samolot samolot)
     {
         // Właściwa implementacja obliczania czasu podróży na podstawie odległości i prędkości samolotu
-        return route.Distance / aircraft.Range;
+        return trasa.Dystans / samolot.Zasieg;
     }
 
-    public void MakeReservation(Flight flight, Customer customer)
+    public void ZrobRezerwacje(Lot lot, Klient Klient)
     {
         // Logika dokonywania rezerwacji
     }
 
     public int GetFlightCount()
     {
-        return flights.Count;
+        return loty.Count;
     }
 
-    public Flight GetFlightByIndex(int index)
+    public Lot GetFlightByIndex(int index)
     {
-        return flights[index];
+        return loty[index];
     }
 
-    public void ViewFlights()
+    public void WyswietlLoty()
     {
-        for (int i = 0; i < flights.Count; i++)
+        for (int i = 0; i < loty.Count; i++)
         {
-            Flight flight = flights[i];
+            Lot lot = loty[i];
             Console.WriteLine(
-                $"Flight {i}: Aircraft - {flight.Aircraft.Model}, Route - {flight.Route.DepartureAirport} to {flight.Route.ArrivalAirport}, Departure Time - {flight.DepartureTime}, Arrival Time - {flight.ArrivalTime}");
+                $"Lot {i}: Samolot - {lot.Samolot.Model}, Trasa - {lot.Trasa.LotniskoWylotu} do {lot.Trasa.LotniskoPrzylotu}, Czas wylotu - {lot.DepartureTime}, Czas przylotu - {lot.ArrivalTime}");
         }
     }
 
-    public void SaveState()
+    public void Zapisz()
     {
-        using (StreamWriter writer = new StreamWriter("flights.txt"))
+        using (StreamWriter writer = new StreamWriter("loty.txt"))
         {
-            foreach (Flight flight in flights)
+            foreach (Lot lot in loty)
             {
                 writer.WriteLine(
-                    $"{flight.Aircraft.Model},{flight.Route.DepartureAirport},{flight.Route.ArrivalAirport},{flight.DepartureTime},{flight.ArrivalTime}");
+                    $"{lot.Samolot.Model},{lot.Trasa.LotniskoWylotu},{lot.Trasa.LotniskoPrzylotu},{lot.DepartureTime},{lot.ArrivalTime}");
             }
         }
 
-        Console.WriteLine("Flight data saved.");
+        Console.WriteLine("Loty zostały zapisane.");
     }
 
-    public void LoadState()
+    public void Odczytaj()
     {
-        flights.Clear();
+        loty.Clear();
 
-        if (File.Exists("flights.txt"))
+        if (File.Exists("loty.txt"))
         {
-            using (StreamReader reader = new StreamReader("flights.txt"))
+            using (StreamReader reader = new StreamReader("loty.txt"))
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                string linia;
+                while ((linia = reader.ReadLine()) != null)
                 {
-                    string[] flightData = line.Split(',');
-                    if (flightData.Length == 5)
+                    string[] daneSamolotu = linia.Split(',');
+                    if (daneSamolotu.Length == 5)
                     {
-                        string model = flightData[0];
-                        string departureAirport = flightData[1];
-                        string arrivalAirport = flightData[2];
-                        DateTime departureTime;
-                        DateTime arrivalTime;
+                        string model = daneSamolotu[0];
+                        string lotniskoWylotu = daneSamolotu[1];
+                        string lotniskoPrzylotu = daneSamolotu[2];
+                        DateTime czasWylotu;
+                        DateTime czasPrzylotu;
 
-                        if (DateTime.TryParseExact(flightData[3], "dd/MM/yyyy h:mm:ss tt",
-                                CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None, out departureTime) &&
-                            DateTime.TryParseExact(flightData[4], "dd/MM/yyyy h:mm:ss tt",
-                                CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None, out arrivalTime))
+                        if (DateTime.TryParseExact(daneSamolotu[3], "dd/MM/yyyy h:mm:ss tt",
+                                CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None, out czasWylotu) &&
+                            DateTime.TryParseExact(daneSamolotu[4], "dd/MM/yyyy h:mm:ss tt",
+                                CultureInfo.GetCultureInfo("en-US"), DateTimeStyles.None, out czasPrzylotu))
                         {
-                            Aircraft aircraft = aircrafts.FirstOrDefault(a => a.Model == model);
-                            Route route = routes.FirstOrDefault(r =>
-                                r.DepartureAirport == departureAirport && r.ArrivalAirport == arrivalAirport);
+                            Samolot samolot = samoloty.FirstOrDefault(a => a.Model == model);
+                            Trasa trasa = trasy.FirstOrDefault(r =>
+                                r.LotniskoWylotu == lotniskoWylotu && r.LotniskoPrzylotu == lotniskoPrzylotu);
 
-                            if (aircraft != null && route != null)
+                            if (samolot != null && trasa != null)
                             {
-                                Flight flight = new Flight(aircraft, route, departureTime, arrivalTime);
+                                Lot lot = new Lot(samolot, trasa, czasWylotu, czasPrzylotu);
 
-                                flights.Add(flight);
+                                loty.Add(lot);
                             }
                             else
                             {
-                                Console.WriteLine($"Invalid flight data: {line}");
+                                Console.WriteLine($"Niepoprawne dane lotu: {linia}");
                             }
                         }
                         else
                         {
-                            Console.WriteLine($"Invalid flight data: {line}");
+                            Console.WriteLine($"Niepoprawne dane lotu: {linia}");
                         }
                     }
                     else
                     {
-                        Console.WriteLine($"Invalid flight data: {line}");
+                        Console.WriteLine($"Niepoprawne dane lotu: {linia}");
                     }
                 }
             }
 
-            Console.WriteLine("Flight data loaded.");
+            Console.WriteLine("Dane lotu odczytane.");
         }
         else
         {
-            Console.WriteLine("No saved flight data found.");
+            Console.WriteLine("Nie znaleziono pliku z lotami.");
         }
     }
 }

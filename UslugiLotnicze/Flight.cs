@@ -1,17 +1,17 @@
 namespace UslugiLotnicze;
 
-class Flight
+class Lot
 {
-    public Aircraft Aircraft { get; }
-    public Route Route { get; }
+    public Samolot Samolot { get; }
+    public Trasa Trasa { get; }
     public DateTime DepartureTime { get; }
     public DateTime ArrivalTime { get; }
 
-    public Flight(Aircraft aircraft, Route route, DateTime departureTime, DateTime arrivalTime)
+    public Lot(Samolot samolot, Trasa trasa, DateTime czasWylotu, DateTime czasPrzylotu)
     {
-        Aircraft = aircraft;
-        Route = route;
-        DepartureTime = departureTime;
-        ArrivalTime = arrivalTime;
+        Samolot = samolot;
+        Trasa = trasa;
+        DepartureTime = czasWylotu;
+        ArrivalTime = czasPrzylotu;
     }
 }

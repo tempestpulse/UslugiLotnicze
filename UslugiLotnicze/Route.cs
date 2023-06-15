@@ -1,15 +1,15 @@
 namespace UslugiLotnicze;
 
-class Route
+class Trasa
 {
-    public string DepartureAirport { get; }
-    public string ArrivalAirport { get; }
-    public int Distance { get; }
+    public string LotniskoWylotu { get; }
+    public string LotniskoPrzylotu { get; }
+    public int Dystans { get; }
 
-    public Route(string departureAirport, string arrivalAirport, int distance)
+    public Trasa(string lotniskoWylotu, string lotniskoPrzylotu, int dystans)
     {
-        DepartureAirport = departureAirport;
-        ArrivalAirport = arrivalAirport;
-        Distance = distance;
+        LotniskoWylotu = lotniskoWylotu;
+        LotniskoPrzylotu = lotniskoPrzylotu;
+        Dystans = dystans;
     }
 }

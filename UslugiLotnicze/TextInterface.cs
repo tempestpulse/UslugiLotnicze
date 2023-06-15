@@ -1,61 +1,61 @@
 namespace UslugiLotnicze;
 
-class TextInterface
+class TekstowyInterface
 {
-    private ReservationSystem reservationSystem;
+    private SystemRezerwacji systemRezerwacji;
 
-    public TextInterface()
+    public TekstowyInterface()
     {
-        reservationSystem = new ReservationSystem();
+        systemRezerwacji = new SystemRezerwacji();
     }
 
     // Metoda wyświetlająca menu
-    public void ShowMenu()
+    public void PokazMenu()
     {
         bool exit = false;
 
         while (!exit)
         {
             Console.WriteLine();
-            Console.WriteLine("1. Manage Aircrafts");
-            Console.WriteLine("2. Manage Customers");
-            Console.WriteLine("3. Manage Routes");
-            Console.WriteLine("4. Generate Flights");
-            Console.WriteLine("5. Make Reservation");
-            Console.WriteLine("6. Save State");
-            Console.WriteLine("7. Load State");
-            Console.WriteLine("8. Exit");
-            Console.Write("Enter your choice: ");
-            string choice = Console.ReadLine();
+            Console.WriteLine("1. Zarzadząj Samolotami");
+            Console.WriteLine("2. Zarzadząj Klientami");
+            Console.WriteLine("3. Zarządzaj Trasami");
+            Console.WriteLine("4. Generuj Lot");
+            Console.WriteLine("5. Zrób rezerwację");
+            Console.WriteLine("6. Zapisz");
+            Console.WriteLine("7. Odczytaj");
+            Console.WriteLine("8. Wyjdź");
+            Console.Write("Wybierz opcję: ");
+            string wybor = Console.ReadLine();
 
-            switch (choice)
+            switch (wybor)
             {
                 case "1":
                     ManageAircrafts();
                     break;
                 case "2":
-                    ManageCustomers();
+                    ZarzadzajKlientami();
                     break;
                 case "3":
-                    ManageRoutes();
+                    ZarzadzajTrasami();
                     break;
                 case "4":
-                    GenerateFlights();
+                    GenerujLoty();
                     break;
                 case "5":
-                    MakeReservation();
+                    ZrobRezerwacje();
                     break;
                 case "6":
-                    SaveState();
+                    Zapisz();
                     break;
                 case "7":
-                    LoadState();
+                    Odczytaj();
                     break;
                 case "8":
                     exit = true;
                     break;
                 default:
-                    Console.WriteLine("Invalid choice. Try again.");
+                    Console.WriteLine("Niepoprawny wybór. Spróbuj ponownie.");
                     break;
             }
         }
@@ -65,272 +65,272 @@ class TextInterface
         private void ManageAircrafts()
         {
             Console.WriteLine();
-            Console.WriteLine("1. Add Aircraft");
-            Console.WriteLine("2. Remove Aircraft");
-            Console.WriteLine("3. View Aircrafts");
-            Console.Write("Enter your choice: ");
-            string choice = Console.ReadLine();
+            Console.WriteLine("1. Dodaj Samolot");
+            Console.WriteLine("2. Usuń Samolot");
+            Console.WriteLine("3. Wyświetl Samoloty");
+            Console.Write("Wybierz opcję: ");
+            string wybor = Console.ReadLine();
 
-            switch (choice)
+            switch (wybor)
             {
                 case "1":
-                    AddAircraft();
+                    DodajSamolot();
                     break;
                 case "2":
-                    RemoveAircraft();
+                    UsunSamolot();
                     break;
                 case "3":
-                    ViewAircrafts();
+                    WyswietlSamoloty();
                     break;
                 default:
-                    Console.WriteLine("Invalid choice. Try again.");
+                    Console.WriteLine("Niepoprawny wybór. Spróbuj ponownie.");
                     break;
             }
         }
 
         // Metoda dodająca samolot
-        private void AddAircraft()
+        private void DodajSamolot()
         {
             Console.WriteLine();
-            Console.Write("Enter Model: ");
+            Console.Write("Podaj Model: ");
             string model = Console.ReadLine();
-            Console.Write("Enter Capacity: ");
-            int capacity = int.Parse(Console.ReadLine());
-            Console.Write("Enter Range: ");
-            int range = int.Parse(Console.ReadLine());
+            Console.Write("Podaj Rozmiar: ");
+            int rozmiar = int.Parse(Console.ReadLine());
+            Console.Write("Podaj Zasieg: ");
+            int zasieg = int.Parse(Console.ReadLine());
 
-            Aircraft aircraft = new Aircraft(model, capacity, range);
+            Samolot samolot = new Samolot(model, rozmiar, zasieg);
 
-            reservationSystem.AddAircraft(aircraft);
-            Console.WriteLine("Aircraft added.");
+            systemRezerwacji.DodajSamolot(samolot);
+            Console.WriteLine("Samolot dodany.");
         }
 
         // Metoda usuwająca samolot
-        private void RemoveAircraft()
+        private void UsunSamolot()
         {
             Console.WriteLine();
-            ViewAircrafts();
-            Console.Write("Enter the index of the aircraft to remove: ");
+            WyswietlSamoloty();
+            Console.Write("Podaj index samolotu, który chcesz usunąć: ");
             int index = int.Parse(Console.ReadLine());
 
-            if (index >= 0 && index < reservationSystem.GetAircraftCount())
+            if (index >= 0 && index < systemRezerwacji.GetSamolotyIlosc())
             {
-                Aircraft aircraft = reservationSystem.GetAircraftByIndex(index);
-                reservationSystem.RemoveAircraft(aircraft);
-                Console.WriteLine("Aircraft removed.");
+                Samolot samolot = systemRezerwacji.GetSamolotIndex(index);
+                systemRezerwacji.UsunSamolot(samolot);
+                Console.WriteLine("Samolot usunięty.");
             }
             else
             {
-                Console.WriteLine("Invalid index.");
+                Console.WriteLine("Niepoprawny index.");
             }
         }
 
         // Metoda wyświetlająca samoloty
-        private void ViewAircrafts()
+        private void WyswietlSamoloty()
         {
             Console.WriteLine();
-            reservationSystem.ViewAircrafts();
+            systemRezerwacji.WyswietlSamoloty();
         }
 
         // Metoda obsługująca zarządzanie klientami
-        private void ManageCustomers()
+        private void ZarzadzajKlientami()
         {
             Console.WriteLine();
-            Console.WriteLine("1. Add Customer");
-            Console.WriteLine("2. Remove Customer");
-            Console.WriteLine("3. View Customers");
-            Console.Write("Enter your choice: ");
-            string choice = Console.ReadLine();
+            Console.WriteLine("1. Dodaj klienta");
+            Console.WriteLine("2. Usuń klienta");
+            Console.WriteLine("3. Wyświetl Klientów");
+            Console.Write("Wybierz opcję: ");
+            string wybor = Console.ReadLine();
 
-            switch (choice)
+            switch (wybor)
             {
                 case "1":
-                    AddCustomer();
+                    DodajKlienta();
                     break;
                 case "2":
-                    RemoveCustomer();
+                    UsunKlienta();
                     break;
                 case "3":
-                    ViewCustomers();
+                    WyswietlKlientow();
                     break;
                 default:
-                    Console.WriteLine("Invalid choice. Try again.");
+                    Console.WriteLine("Niepoprawny wybór. Spróbuj ponownie.");
                     break;
             }
         }
 
         // Metoda dodająca klienta
-        private void AddCustomer()
+        private void DodajKlienta()
         {
             Console.WriteLine();
-            Console.Write("Enter Name: ");
-            string name = Console.ReadLine();
-            Console.Write("Enter Type: ");
-            string type = Console.ReadLine();
+            Console.Write("Podaj Imie: ");
+            string imie = Console.ReadLine();
+            Console.Write("Podaj Typ: ");
+            string typ = Console.ReadLine();
 
-            Customer customer = new Customer(name, type);
+            Klient Klient = new Klient(imie, typ);
 
-            reservationSystem.AddCustomer(customer);
-            Console.WriteLine("Customer added.");
+            systemRezerwacji.DodajKlienta(Klient);
+            Console.WriteLine("Klient dodany.");
         }
 
         // Metoda usuwająca klienta
-        private void RemoveCustomer()
+        private void UsunKlienta()
         {
             Console.WriteLine();
-            ViewCustomers();
-            Console.Write("Enter the index of the customer to remove: ");
+            WyswietlKlientow();
+            Console.Write("Podaj index klienta, którego chcesz usunąć: ");
             int index = int.Parse(Console.ReadLine());
 
-            if (index >= 0 && index < reservationSystem.GetCustomerCount())
+            if (index >= 0 && index < systemRezerwacji.GetKlientCount())
             {
-                Customer customer = reservationSystem.GetCustomerByIndex(index);
-                reservationSystem.RemoveCustomer(customer);
-                Console.WriteLine("Customer removed.");
+                Klient Klient = systemRezerwacji.GetKlientByIndex(index);
+                systemRezerwacji.UsunKlienta(Klient);
+                Console.WriteLine("Klient usunięty.");
             }
             else
             {
-                Console.WriteLine("Invalid index.");
+                Console.WriteLine("Niepoprawny index.");
             }
         }
 
         // Metoda wyświetlająca klientów
-        private void ViewCustomers()
+        private void WyswietlKlientow()
         {
             Console.WriteLine();
-            reservationSystem.ViewCustomers();
+            systemRezerwacji.WyswietlKlientow();
         }
 
         // Metoda obsługująca zarządzanie trasami
-        private void ManageRoutes()
+        private void ZarzadzajTrasami()
         {
             Console.WriteLine();
-            Console.WriteLine("1. Add Route");
-            Console.WriteLine("2. Remove Route");
-            Console.WriteLine("3. View Routes");
-            Console.Write("Enter your choice: ");
-            string choice = Console.ReadLine();
+            Console.WriteLine("1. Dodaj trasę");
+            Console.WriteLine("2. Usuń trasę");
+            Console.WriteLine("3. Wyświetl Trasy");
+            Console.Write("Wybierz opcję: ");
+            string wybor = Console.ReadLine();
 
-            switch (choice)
+            switch (wybor)
             {
                 case "1":
-                    AddRoute();
+                    DodajTrase();
                     break;
                 case "2":
-                    RemoveRoute();
+                    UsunTrase();
                     break;
                 case "3":
-                    ViewRoutes();
+                    WyswietlTrasy();
                     break;
                 default:
-                    Console.WriteLine("Invalid choice. Try again.");
+                    Console.WriteLine("Niepoprawny wybór. Spróbuj ponownie.");
                     break;
             }
         }
 
         // Metoda dodająca trasę
-        private void AddRoute()
+        private void DodajTrase()
         {
             Console.WriteLine();
-            Console.Write("Enter Departure Airport: ");
-            string departureAirport = Console.ReadLine();
-            Console.Write("Enter Arrival Airport: ");
-            string arrivalAirport = Console.ReadLine();
-            Console.Write("Enter Distance: ");
-            int distance = int.Parse(Console.ReadLine());
+            Console.Write("Dodaj lotnisko wylotu: ");
+            string lotniskoWylotu = Console.ReadLine();
+            Console.Write("Dodaj lotnisko przylotu: ");
+            string lotniskoPrzylotu = Console.ReadLine();
+            Console.Write("Dodaj dystans: ");
+            int dystans = int.Parse(Console.ReadLine());
 
-            Route route = new Route(departureAirport, arrivalAirport, distance);
+            Trasa trasa = new Trasa(lotniskoWylotu, lotniskoPrzylotu, dystans);
 
-            reservationSystem.AddRoute(route);
-            Console.WriteLine("Route added.");
+            systemRezerwacji.DodajTrase(trasa);
+            Console.WriteLine("Trasa added.");
         }
 
         // Metoda usuwająca trasę
-        private void RemoveRoute()
+        private void UsunTrase()
         {
             Console.WriteLine();
-            ViewRoutes();
-            Console.Write("Enter the index of the route to remove: ");
+            WyswietlTrasy();
+            Console.Write("Podaj index trasy, którą chcesz usunąć: ");
             int index = int.Parse(Console.ReadLine());
 
-            if (index >= 0 && index < reservationSystem.GetRouteCount())
+            if (index >= 0 && index < systemRezerwacji.GetIloscTras())
             {
-                Route route = reservationSystem.GetRouteByIndex(index);
-                reservationSystem.RemoveRoute(route);
-                Console.WriteLine("Route removed.");
+                Trasa trasa = systemRezerwacji.GetIndexTrasy(index);
+                systemRezerwacji.UsunTrase(trasa);
+                Console.WriteLine("Trasa usunięta.");
             }
             else
             {
-                Console.WriteLine("Invalid index.");
+                Console.WriteLine("Niepoprawny index.");
             }
         }
 
         // Metoda wyświetlająca trasy
-        private void ViewRoutes()
+        private void WyswietlTrasy()
         {
             Console.WriteLine();
-            reservationSystem.ViewRoutes();
+            systemRezerwacji.WyswietlTrasy();
         }
 
         // Metoda generująca loty
-        private void GenerateFlights()
+        private void GenerujLoty()
         {
             Console.WriteLine();
-            reservationSystem.GenerateFlights();
-            Console.WriteLine("Flights generated.");
+            systemRezerwacji.GenerujLoty();
+            Console.WriteLine("Loty zostały wygenerowane.");
         }
 
         // Metoda obsługująca dokonywanie rezerwacji
-        private void MakeReservation()
+        private void ZrobRezerwacje()
         {
             Console.WriteLine();
-            ViewFlights();
-            Console.Write("Enter the index of the flight to make a reservation: ");
+            WyswietlLoty();
+            Console.Write("Podaj index lotu, na który chcesz zrobić rezerwację: ");
             int flightIndex = int.Parse(Console.ReadLine());
 
-            if (flightIndex >= 0 && flightIndex < reservationSystem.GetFlightCount())
+            if (flightIndex >= 0 && flightIndex < systemRezerwacji.GetFlightCount())
             {
-                Flight flight = reservationSystem.GetFlightByIndex(flightIndex);
+                Lot lot = systemRezerwacji.GetFlightByIndex(flightIndex);
 
-                ViewCustomers();
-                Console.Write("Enter the index of the customer to make the reservation for: ");
-                int customerIndex = int.Parse(Console.ReadLine());
+                WyswietlKlientow();
+                Console.Write("Podaj index klienta, dla którego chcesz zrobić rezerwację: ");
+                int KlientIndex = int.Parse(Console.ReadLine());
 
-                if (customerIndex >= 0 && customerIndex < reservationSystem.GetCustomerCount())
+                if (KlientIndex >= 0 && KlientIndex < systemRezerwacji.GetKlientCount())
                 {
-                    Customer customer = reservationSystem.GetCustomerByIndex(customerIndex);
-                    reservationSystem.MakeReservation(flight, customer);
-                    Console.WriteLine("Reservation made.");
+                    Klient Klient = systemRezerwacji.GetKlientByIndex(KlientIndex);
+                    systemRezerwacji.ZrobRezerwacje(lot, Klient);
+                    Console.WriteLine("Rezerwacja ukończona.");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid customer index.");
+                    Console.WriteLine("Niepoprawny index klienta.");
                 }
             }
             else
             {
-                Console.WriteLine("Invalid flight index.");
+                Console.WriteLine("Niepoprawny index lotu.");
             }
         }
 
         // Metoda wyświetlająca loty
-        private void ViewFlights()
+        private void WyswietlLoty()
         {
             Console.WriteLine();
-            reservationSystem.ViewFlights();
+            systemRezerwacji.WyswietlLoty();
         }
 
         // Metoda zapisująca stan systemu
-        private void SaveState()
+        private void Zapisz()
         {
             Console.WriteLine();
-            reservationSystem.SaveState();
+            systemRezerwacji.Zapisz();
         }
 
         // Metoda wczytująca stan systemu
-        private void LoadState()
+        private void Odczytaj()
         {
             Console.WriteLine();
-            reservationSystem.LoadState();
+            systemRezerwacji.Odczytaj();
         }
     }

@@ -1,15 +1,15 @@
 namespace UslugiLotnicze;
 
-class Aircraft
+class Samolot
 {
     public string Model { get; }
-    public int Capacity { get; }
-    public int Range { get; }
+    public int Rozmiar { get; }
+    public int Zasieg { get; }
 
-    public Aircraft(string model, int capacity, int range)
+    public Samolot(string model, int rozmiar, int zasieg)
     {
         Model = model;
-        Capacity = capacity;
-        Range = range;
+        Rozmiar = rozmiar;
+        Zasieg = zasieg;
     }
 }

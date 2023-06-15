@@ -1,13 +1,13 @@
 namespace UslugiLotnicze;
 
-class Customer
+class Klient
 {
-    public string Name { get; }
-    public string Type { get; }
+    public string Imie { get; }
+    public string Typ { get; }
 
-    public Customer(string name, string type)
+    public Klient(string imie, string typ)
     {
-        Name = name;
-        Type = type;
+        Imie = imie;
+        Typ = typ;
     }
 }

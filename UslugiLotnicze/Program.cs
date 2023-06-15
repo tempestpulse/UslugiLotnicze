@@ -10,7 +10,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        TextInterface textInterface = new TextInterface();
-        textInterface.ShowMenu();
+        TekstowyInterface tekstowyInterface = new TekstowyInterface();
+        tekstowyInterface.PokazMenu();
     }
 }
