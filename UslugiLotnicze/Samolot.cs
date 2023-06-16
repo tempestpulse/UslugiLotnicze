@@ -1,5 +1,3 @@
-namespace UslugiLotnicze;
-
 class Samolot
 {
     public string Model { get; }

@@ -92,12 +92,35 @@ class TekstowyInterface
         private void DodajSamolot()
         {
             Console.WriteLine();
-            Console.Write("Podaj Model: ");
+            Console.WriteLine("1. Mały");
+            Console.WriteLine("2. Średni");
+            Console.WriteLine("3. Duży");
+            Console.Write("Podaj typ samolotu: ");
+            string typ = Console.ReadLine();
+            Console.Write("Podaj model samolotu: ");
             string model = Console.ReadLine();
-            Console.Write("Podaj Rozmiar: ");
-            int rozmiar = int.Parse(Console.ReadLine());
-            Console.Write("Podaj Zasieg: ");
-            int zasieg = int.Parse(Console.ReadLine());
+
+            int rozmiar = 0;
+            int zasieg = 0;
+
+            switch (typ)
+            {
+                case "1":
+                    rozmiar = 500;
+                    zasieg = 1000;
+                    break;
+                case "2":
+                    rozmiar = 1000;
+                    zasieg = 2000;
+                    break;
+                case "3":
+                    rozmiar = 1500;
+                    zasieg = 3000;
+                    break;
+                default:
+                    Console.WriteLine("Nieprawidłowy wybór typu samolotu.");
+                    return;
+            }
 
             Samolot samolot = new Samolot(model, rozmiar, zasieg);
 
