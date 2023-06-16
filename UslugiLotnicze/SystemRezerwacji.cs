@@ -101,54 +101,55 @@ class SystemRezerwacji
         {
             Trasa trasa = trasy[i];
             Console.WriteLine(
-                $"Trasa {i}: Departure Airport - {trasa.LotniskoWylotu}, Arrival Airport - {trasa.LotniskoPrzylotu}, Dystans - {trasa.Dystans}");
+                $"Trasa {i}: Lotnisko Wylotu - {trasa.LotniskoWylotu}, Lotnisko Przylotu - {trasa.LotniskoPrzylotu}, Dystans - {trasa.Dystans}");
         }
     }
 
     public void GenerujLoty()
     {
-        foreach (Trasa trasa in trasy)
+        Random random = new Random();
+        HashSet<Trasa> przypisaneTrasy = new HashSet<Trasa>();
+
+        foreach (Samolot samolot in samoloty)
         {
-            foreach (Samolot samolot in samoloty)
+            foreach (Trasa trasa in trasy)
             {
-                int czasPodrozy = ObliczCzasPodrozy(trasa, samolot);
-                if (samolot.Zasieg < trasa.Dystans)
+                if (samolot.Zasieg < trasa.Dystans || przypisaneTrasy.Contains(trasa))
                 {
                     Console.WriteLine(
-                        $"Lot not generated for Samolot {samolot.Model} and Trasa {trasa.LotniskoWylotu} to {trasa.LotniskoPrzylotu}. Samolot zasieg is insufficient.");
+                        $"Lot nie został wygenerowany dla samolotu {samolot.Model} oraz trasy z lotniska {trasa.LotniskoWylotu} do {trasa.LotniskoPrzylotu}. Zasięg samolotu jest niewystarczający lub trasa została już przypisana.");
                     continue;
                 }
 
-                DateTime czasWylotu = DateTime.Now;
-                DateTime czasPrzylotu = czasWylotu.AddHours(czasPodrozy);
+                DateTime czasWylotu = DateTime.Now.AddHours(random.Next(48, 169));
+                DateTime czasPrzylotu = czasWylotu.AddHours(random.Next(2, 12));
 
                 Lot lot = new Lot(samolot, trasa, czasWylotu, czasPrzylotu);
 
                 loty.Add(lot);
                 Console.WriteLine(
                     $"Lot wygenerowany dla Samolotu {samolot.Model} oraz Trasy {trasa.LotniskoWylotu} do {trasa.LotniskoPrzylotu}.");
+
+                przypisaneTrasy.Add(trasa);
+
+                break; 
             }
         }
     }
 
 
-    private int ObliczCzasPodrozy(Trasa trasa, Samolot samolot)
+
+
+    public void ZrobRezerwacje(Lot lot, Klient klient)
     {
-        // Właściwa implementacja obliczania czasu podróży na podstawie odległości i prędkości samolotu
-        return trasa.Dystans / samolot.Zasieg;
     }
 
-    public void ZrobRezerwacje(Lot lot, Klient Klient)
-    {
-        // Logika dokonywania rezerwacji
-    }
-
-    public int GetFlightCount()
+    public int GetIloscLotow()
     {
         return loty.Count;
     }
 
-    public Lot GetFlightByIndex(int index)
+    public Lot GetIndexLotu(int index)
     {
         return loty[index];
     }

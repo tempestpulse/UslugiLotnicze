@@ -8,8 +8,7 @@ class TekstowyInterface
     {
         systemRezerwacji = new SystemRezerwacji();
     }
-
-    // Metoda wyświetlająca menu
+    
     public void PokazMenu()
     {
         bool exit = false;
@@ -31,7 +30,7 @@ class TekstowyInterface
             switch (wybor)
             {
                 case "1":
-                    ManageAircrafts();
+                    ZarzadzajSamolotami();
                     break;
                 case "2":
                     ZarzadzajKlientami();
@@ -60,9 +59,8 @@ class TekstowyInterface
             }
         }
     }
-
-        // Metoda obsługująca zarządzanie samolotami
-        private void ManageAircrafts()
+    
+        private void ZarzadzajSamolotami()
         {
             Console.WriteLine();
             Console.WriteLine("1. Dodaj Samolot");
@@ -87,8 +85,7 @@ class TekstowyInterface
                     break;
             }
         }
-
-        // Metoda dodająca samolot
+        
         private void DodajSamolot()
         {
             Console.WriteLine();
@@ -127,8 +124,7 @@ class TekstowyInterface
             systemRezerwacji.DodajSamolot(samolot);
             Console.WriteLine("Samolot dodany.");
         }
-
-        // Metoda usuwająca samolot
+        
         private void UsunSamolot()
         {
             Console.WriteLine();
@@ -147,15 +143,13 @@ class TekstowyInterface
                 Console.WriteLine("Niepoprawny index.");
             }
         }
-
-        // Metoda wyświetlająca samoloty
+        
         private void WyswietlSamoloty()
         {
             Console.WriteLine();
             systemRezerwacji.WyswietlSamoloty();
         }
-
-        // Metoda obsługująca zarządzanie klientami
+        
         private void ZarzadzajKlientami()
         {
             Console.WriteLine();
@@ -181,8 +175,7 @@ class TekstowyInterface
                     break;
             }
         }
-
-        // Metoda dodająca klienta
+        
         private void DodajKlienta()
         {
             Console.WriteLine();
@@ -219,10 +212,7 @@ class TekstowyInterface
                     break;
             }
         }
-    
         
-
-        // Metoda usuwająca klienta
         private void UsunKlienta()
         {
             Console.WriteLine();
@@ -241,15 +231,13 @@ class TekstowyInterface
                 Console.WriteLine("Niepoprawny index.");
             }
         }
-
-        // Metoda wyświetlająca klientów
+        
         private void WyswietlKlientow()
         {
             Console.WriteLine();
             systemRezerwacji.WyswietlKlientow();
         }
-
-        // Metoda obsługująca zarządzanie trasami
+        
         private void ZarzadzajTrasami()
         {
             Console.WriteLine();
@@ -275,8 +263,7 @@ class TekstowyInterface
                     break;
             }
         }
-
-        // Metoda dodająca trasę
+        
         private void DodajTrase()
         {
             Console.WriteLine();
@@ -292,8 +279,7 @@ class TekstowyInterface
             systemRezerwacji.DodajTrase(trasa);
             Console.WriteLine("Trasa added.");
         }
-
-        // Metoda usuwająca trasę
+        
         private void UsunTrase()
         {
             Console.WriteLine();
@@ -312,23 +298,20 @@ class TekstowyInterface
                 Console.WriteLine("Niepoprawny index.");
             }
         }
-
-        // Metoda wyświetlająca trasy
+        
         private void WyswietlTrasy()
         {
             Console.WriteLine();
             systemRezerwacji.WyswietlTrasy();
         }
-
-        // Metoda generująca loty
+        
         private void GenerujLoty()
         {
             Console.WriteLine();
             systemRezerwacji.GenerujLoty();
             Console.WriteLine("Loty zostały wygenerowane.");
         }
-
-        // Metoda obsługująca dokonywanie rezerwacji
+        
         private void ZrobRezerwacje()
         {
             Console.WriteLine();
@@ -336,9 +319,9 @@ class TekstowyInterface
             Console.Write("Podaj index lotu, na który chcesz zrobić rezerwację: ");
             int flightIndex = int.Parse(Console.ReadLine());
 
-            if (flightIndex >= 0 && flightIndex < systemRezerwacji.GetFlightCount())
+            if (flightIndex >= 0 && flightIndex < systemRezerwacji.GetIloscLotow())
             {
-                Lot lot = systemRezerwacji.GetFlightByIndex(flightIndex);
+                Lot lot = systemRezerwacji.GetIndexLotu(flightIndex);
 
                 WyswietlKlientow();
                 Console.Write("Podaj index klienta, dla którego chcesz zrobić rezerwację: ");
@@ -360,22 +343,19 @@ class TekstowyInterface
                 Console.WriteLine("Niepoprawny index lotu.");
             }
         }
-
-        // Metoda wyświetlająca loty
+        
         private void WyswietlLoty()
         {
             Console.WriteLine();
             systemRezerwacji.WyswietlLoty();
         }
-
-        // Metoda zapisująca stan systemu
+        
         private void Zapisz()
         {
             Console.WriteLine();
             systemRezerwacji.Zapisz();
         }
-
-        // Metoda wczytująca stan systemu
+        
         private void Odczytaj()
         {
             Console.WriteLine();
