@@ -1,13 +1,44 @@
 namespace UslugiLotnicze;
 
-class Klient
+public class Klient
 {
-    public string Imie { get; }
-    public string Typ { get; }
 
-    public Klient(string imie, string typ)
+    public int id_lotu = -1;
+
+
+    public void przypisanieIdLotu(int id)
     {
-        Imie = imie;
-        Typ = typ;
+        this.id_lotu = id;
     }
+
+    public int getIdLotu()
+    {
+        return this.id_lotu;
+    }
+
+
+    public virtual string getNazwaFirmy()
+    {
+        return "";
+
+    }
+
+    public virtual string getNip()
+    {
+        return "";
+
+    }
+    public virtual string getNazwisko()
+    {
+        return "";
+
+    }
+
+    public virtual string getImie()
+    {
+        return "";
+
+    }
+
+
 }
